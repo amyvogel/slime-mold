@@ -258,6 +258,14 @@ for p=1:foodnum
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     min(fit_PO)
 
+    %%%%%%%% plotting the tree %%%%%%%%
+    figure(1);
+    pl = plot(graph(Rset));
+    highlight(pl, graph(set), 'LineWidth',3);
+    highlight(pl, [p], 'NodeColor', 'r', 'MarkerSize', 6);
+    pause(.33) % hold on a sec until next iteration, this is for the animation
+    
+    
     if Total_length==min(fit_PO)
         MinSet=set;
         for i=1:N
@@ -271,11 +279,15 @@ for p=1:foodnum
         end
     end
 
-    %%%%%%%%%%%%%  Analysis
-
-    plot(1:fe_PO,fit_PO)
-    grid on;
+    
 end
+
+%%%%%%%%%%%%%  Analysis
+%%% note from Amy: I moved this out of the for-loop, didn't think it made a
+%%% difference but it disrupted the animation.
+figure(2);
+plot(1:fe_PO,fit_PO)
+grid on;
 
 performance_vec = zeros(1,N);
 j = 1;
