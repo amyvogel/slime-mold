@@ -63,6 +63,13 @@ data = readtable(filepath,opts);
 data.Var1 = [];
 data = data{:,:};
 
+%%%% plotting - init figure with subplots %%%%%%%%
+figure(1);
+subplot(1,2,1)
+title('Finding Steiner Tree for Node P')
+subplot(1,2,2)
+title('Best Steiner Tree for Node P')
+
 optimal=82;  %%% optimal length
 
 fe_PO=0; % function evaluation
@@ -257,36 +264,47 @@ for p=1:foodnum
         
         %%%% PLOTTING STEINER TREE SO FAR, ANIMATION %%%%%%
         % this is showing how the best steiner tree is found for each node
-        figure(3);
+        figure(1)
+        subplot(1,2,1)
+        
         if k == 1
             baseSet = set;
-            pl1 = plot(graph(baseSet));
+            pl1 = plot(graph(baseSet), 'MarkerSize', 4);
+            highlight(pl1, graph(set), 'MarkerSize', 4, 'LineWidth', 3);
+            highlight(pl1, [p], 'NodeColor', 'r', 'EdgeColor', 'r', 'MarkerSize', 6);
+            title(strcat('Finding Steiner Tree for Node ', string(p)));
         elseif k==kk
-            pl1 = plot(graph(baseSet));
-            highlight(pl1, graph(set));
-            highlight(pl1, [p], 'NodeColor', 'r', 'EdgeColor', 'r', 'LineWidth', 3);
-            pause(1);
-        else
-            pl1 = plot(graph(baseSet));
-            highlight(pl1, graph(set));
-            highlight(pl1, [p], 'NodeColor', 'r', 'EdgeColor', 'r');
+            pl1 = plot(graph(baseSet), 'MarkerSize', 4);
+            highlight(pl1, graph(set), 'MarkerSize', 4, 'LineWidth', 3);
+            highlight(pl1, [p], 'NodeColor', 'r', 'EdgeColor', 'r', 'LineWidth', 3, 'MarkerSize', 6);
+            title(strcat('Finding Steiner Tree for Node ', string(p)));
             pause(.1);
+        else
+            pl1 = plot(graph(baseSet), 'MarkerSize', 4);
+            highlight(pl1, graph(set), 'MarkerSize', 4, 'LineWidth', 3);
+            highlight(pl1, [p], 'NodeColor', 'r', 'EdgeColor', 'r', 'MarkerSize', 6);
+            title(strcat('Finding Steiner Tree for Node ', string(p)));
+            pause(.01);
         end
+        
          
     end  %%%% k iteration
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    min(fit_PO)
 
-    %%%%%%%% plotting the tree %%%%%%%%
-    figure(1);
-    pl = plot(graph(Rset));
-    highlight(pl, graph(set), 'LineWidth',3);
-    highlight(pl, [p], 'NodeColor', 'r', 'MarkerSize', 6);
-    pause(.33) % hold on a sec until next iteration, this is for the animation
-    
+    min(fit_PO)
     
     if Total_length==min(fit_PO)
         MinSet=set;
+        %%%%%%%% plotting the best steiner tree found so far %%%%%%%%
+        figure(1);
+        subplot(1,2,2);
+
+        pl = plot(graph(Rset));
+        highlight(pl, graph(set), 'LineWidth',3, 'EdgeColor', 'r');
+        highlight(pl, [p], 'NodeColor', 'r', 'MarkerSize', 8);
+        title(strcat('Best Steiner Tree on Network (So Far) Centers on Node ', string(p)))
+        pause(.33) % hold on a sec until next iteration, this is for the animation
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         for i=1:N
             for j=1:N
                if set(i,j)==1
