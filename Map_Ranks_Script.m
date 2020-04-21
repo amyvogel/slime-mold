@@ -1,6 +1,6 @@
 %% Map 1 node ranking
 
-Map_matrix = xlsread('ER_test1.csv');
+Map_matrix = xlsread('ER_test1.xls');
 [deg_cent, betw_cent, pagerank] = centrality_ranking(Map_matrix)
 
 % now we will order the nodes from most important to least important
