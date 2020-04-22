@@ -326,14 +326,16 @@ figure(2);
 plot(1:fe_PO,fit_PO)
 grid on;
 
-performance_vec = zeros(1,N);
-j = 1;
-for i = 1:fe_PO-1
-    if fit_PO(i)<fit_PO(i+1)
-        performance_vec(j) = fit_PO(j);
-        j = j+1;
-    end
-end
+% performance_vec = zeros(1,N);
+% j = 1;
+% for i = 1:fe_PO-1
+%     if fit_PO(i)<fit_PO(i+1)
+%         performance_vec(j) = fit_PO(j);
+%         j = j+1;
+%     end
+% end
+% 
+% performance_vec(50) = fit_PO(length(fit_PO));
+% performance_vec
 
-performance_vec(50) = fit_PO(length(fit_PO));
-performance_vec
+[out,idx] = sort(fit_PO(30:30:1500))

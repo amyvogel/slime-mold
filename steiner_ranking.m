@@ -1,4 +1,4 @@
-function [performance_vec, set] = steiner_ranking(map_matrix)
+function [idx, set] = steiner_ranking(map_matrix)
     
     data = map_matrix;
     data = data(:,2:end);
@@ -214,15 +214,6 @@ function [performance_vec, set] = steiner_ranking(map_matrix)
     end
 
    
-    performance_vec = zeros(1,N);
-    j = 1;
-    for i = 1:fe_PO-1
-        if fit_PO(i)<fit_PO(i+1)
-            performance_vec(j) = fit_PO(j);
-            j = j+1;
-        end
-    end
-
-    performance_vec(50) = fit_PO(length(fit_PO));
+    [out,idx] = sort(fit_PO(30:30:1500));
 end
 

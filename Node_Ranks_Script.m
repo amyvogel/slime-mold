@@ -6,14 +6,14 @@ Map_matrix = xlsread('ER_test1.xls');
 [deg_cent, betw_cent, pagerank] = centrality_ranking(Map_matrix);
 
 % get the steiner tree thing
-[performance_vec, set] = steiner_ranking(Map_matrix);
+[idx, set] = steiner_ranking(Map_matrix);
 
 % get index of max for each centrality
 [M_deg,I_deg] = max(deg_cent)
 [M_betw,I_betw] = max(betw_cent)
 [M_pgr,I_pgr] = max(pagerank)
 % steiner tree performance vec
-[M_st,I_st] = min(performance_vec) % use min for this one
+[M_st,I_st] = max(idx) 
 
 p = plot(graph(set))
 highlight(p, [I_deg, I_betw, I_pgr, I_st], 'NodeColor', 'r')
